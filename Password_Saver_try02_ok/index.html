@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veri Kaydetme</title>
+</head>
+<body>
+    <label for="username">Kullanıcı Adı:</label>
+    <input type="text" id="username">
+    <br>
+    <label for="password">Parola:</label>
+    <input type="password" id="password">
+    <br>
+    <button id="saveButton">Verileri Kaydet</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const saveButton = document.getElementById('saveButton');
+
+            saveButton.addEventListener('click', function() {
+                const usernameInput = document.getElementById('username');
+                const passwordInput = document.getElementById('password');
+
+                const user = {
+                    username: usernameInput.value,
+                    password: passwordInput.value
+                };
+
+                // JSON dizisine ekleniyor
+                const jsonData = JSON.stringify([user]);
+
+                // Bu örnek, JSON verilerini indirilebilir bir dosyaya kaydetmek için kullanılır.
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'data.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+</html>
